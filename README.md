@@ -2,4 +2,8 @@
     
     DenseNetCTC: DenseNet121
     
+    ResNetCTC: ResNet50
+    
     CRNNCTC
+    
+    
