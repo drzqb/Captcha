@@ -1,4 +1,4 @@
-#验证码识别模型
+验证码识别模型
     
     DenseNetCTC: DenseNet121
     
