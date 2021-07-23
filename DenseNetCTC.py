@@ -203,8 +203,18 @@ class USER():
 
         preds = model.predict(imageinput)
         pred_texts = self.decode_batch_predictions(preds)
-        for i in range(len(images)):
-            print(images[i].split(os.path.sep)[-1].split(".png")[0], " ----> ", pred_texts[i])
+
+        m_samples = len(images)
+        count_right = 0.
+        for i in range(m_samples):
+            reallabel = images[i].split(os.path.sep)[-1].split(".png")[0]
+            predlabel = pred_texts[i]
+            print(reallabel, " ----> ", predlabel)
+
+            if predlabel == reallabel:
+                count_right += 1.
+
+        print("acc: %.2f" % (count_right / m_samples))
 
 
 def main():
@@ -217,13 +227,16 @@ def main():
         user.train()
 
     elif params_mode == 'test':
-        images = [
-            "data/OriginalFiles/captcha_images_v2/2b827.png",
-            # "data/OriginalFiles/captcha_images_v1/2i4mm.png",
-            # "data/OriginalFiles/captcha_images_v1/e4pix.png",
-            # "data/OriginalFiles/captcha_images_v1/eh8j7.png",
-            # "data/OriginalFiles/captcha_images_v1/m55qf.png",
-        ]
+        data_dir = Path("data/OriginalFiles/captcha_images_v2/")
+        images = sorted(list(map(str, list(data_dir.glob("*.png")))))
+
+        # images = [
+        #     "data/OriginalFiles/captcha_images_v2/2b827.png",
+        #     "data/OriginalFiles/captcha_images_v2/36w25.png",
+        #     # "data/OriginalFiles/captcha_images_v1/e4pix.png",
+        #     # "data/OriginalFiles/captcha_images_v1/eh8j7.png",
+        #     # "data/OriginalFiles/captcha_images_v1/m55qf.png",
+        # ]
         user.test(images)
 
 
