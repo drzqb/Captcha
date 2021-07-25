@@ -125,7 +125,6 @@ class USER():
         ResNet50 = tf.keras.applications.ResNet50(input_tensor=x, include_top=False, weights="imagenet")
         ResNet50.trainable = False
         x = ResNet50.get_layer("conv2_block3_1_conv").output
-        x = tf.keras.layers.Dropout(param_drop_rate)(x)
         x = tf.keras.layers.BatchNormalization(axis=-1, epsilon=1.1e-5)(x)
         x = tf.keras.layers.Activation('relu')(x)
         x = tf.keras.layers.TimeDistributed(tf.keras.layers.Flatten(), name='flatten')(x)

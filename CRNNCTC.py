@@ -126,9 +126,8 @@ class USER():
         x = MaxPooling2D(pool_size=2, name="pool2")(x)
         x = Reshape([params_img_width // 4, params_img_height // 4 * 64], name="reshape")(x)
         x = Dense(64, activation="relu", name="dense1")(x)
-        x = Dropout(param_drop_rate)(x)
-        x = Bidirectional(LSTM(128, return_sequences=True, dropout=param_drop_rate))(x)
-        x = Bidirectional(LSTM(64, return_sequences=True, dropout=param_drop_rate))(x)
+        x = Bidirectional(LSTM(128, return_sequences=True))(x)
+        x = Bidirectional(LSTM(64, return_sequences=True))(x)
         crnnoutput = Dense(params_characters_len + 2, activation="softmax", name="dense2")(x)
 
         model = Model(inputs=[image], outputs=[crnnoutput])

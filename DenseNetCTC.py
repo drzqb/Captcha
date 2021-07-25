@@ -125,7 +125,6 @@ class USER():
         DenseNet121 = tf.keras.applications.DenseNet121(input_tensor=x, include_top=False, weights="imagenet")
         DenseNet121.trainable = False
         x = DenseNet121.get_layer('pool2_pool').output
-        x = tf.keras.layers.Dropout(param_drop_rate)(x)
         x = tf.keras.layers.BatchNormalization(axis=-1, epsilon=1.1e-5)(x)
         x = tf.keras.layers.Activation('relu')(x)
         x = tf.keras.layers.TimeDistributed(tf.keras.layers.Flatten(), name='flatten')(x)
